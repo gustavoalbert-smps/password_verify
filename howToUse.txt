@@ -1,0 +1,13 @@
+Instalar o Python na versão mais recente:
+
+https://www.python.org
+
+Django
+
+Execute o comando:
+pip install django
+
+Django REST framework:
+pip install djangorestframework
+
+Caso necessários instalar um ambiente virtual
