@@ -9,5 +9,7 @@ pip install django
 
 Django REST framework:
 pip install djangorestframework
+python -m pip install django-cors-headers
 
-Caso necessários instalar um ambiente virtual
+Para rodar o ambiente virtual do django na sua máquina altere os seguintes caminhos para os caminhos correspondentes ao seu usuário na máquina:
+

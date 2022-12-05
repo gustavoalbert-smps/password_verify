@@ -1,12 +1,15 @@
 <?php
 
-include_once 'CurlConnection.php';
+include_once 'curlConnection.php';
+include_once 'checkers.php';
 
 $curl = connect('http://localhost:8000/verify/');
 
 $requestResult = json_decode(curl_exec($curl), true);
 
-echo verifyPasswordStrength(end($requestResult));
+$noMatchingRules = verifyPasswordStrength(end($requestResult));
+
+echo validateRequest($noMatchingRules);
 
 function verifyPasswordStrength($requestData)
 {
@@ -17,22 +20,27 @@ function verifyPasswordStrength($requestData)
         $rules .= $requestData["rules"][$i]["rule"].',';
     }
 
-    if (strripos($rules,'minSize')) {
-        $currentRule = '';
-        $fullRule = [];
-        
-        while ($currentRule != 'minSize') {
-            for ($i = 0; $i < count($requestData["rules"]); $i++) {
-                $currentRule = $requestData["rules"][$i]["rule"];
-                $fullRule = ['rule' => $requestData["rules"][$i]["rule"],'value' =>$requestData["rules"][$i]["value"]];
-            } 
-        }
+    if ((strripos($rules,'minSize') >= 0) && (strripos($rules,'minSize') != false)) {
+        $ruleValue = getCurrentRule($requestData, 'minSize');
 
-        if (count($requestData["password"]) < $fullRule["value"]) {
+        if (strlen($requestData["password"]) < $ruleValue) {
             $noMatchingRules[] = 'minSize';
         }
     }
 
+    if ((strripos($rules,'minUppercase') >= 0) && (strripos($rules,'minUppercase') != false)) {
+        $ruleValue = getCurrentRule($requestData, 'minUppercase');
+
+        if (countUpperCases($requestData["password"]) < $ruleValue) {
+            $noMatchingRules[] = 'minUppercase';
+        }
+    }
+
+    return $noMatchingRules;
+}
+
+function validateRequest($noMatchingRules)
+{
     if (count($noMatchingRules) > 0) {
         $resultArray = array('verify' => false, 'noMatch' => $noMatchingRules);
 
