@@ -1,7 +1,5 @@
 <?php
 
-include_once 'checkers.php';
-
 function connect($url) {
     $curl = curl_init($url);
 
