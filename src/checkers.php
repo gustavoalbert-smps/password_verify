@@ -8,49 +8,48 @@ function verifyPasswordStrength($requestData)
     for ($i = 0; $i < count($requestData["rules"]); $i++) {
         $rules .= $requestData["rules"][$i]["rule"].',';
     }
-
-    if ((strripos($rules,'minSize') >= 0) && (strripos($rules,'minSize') != false)) {
+    
+    if ((strripos($rules,'minSize') >= 0) && (strripos($rules,'minSize') !== false)) {
         $ruleValue = getCurrentRule($requestData, 'minSize');
 
-        echo 'cheguei aq';
-        if (strlen($requestData["password"]) < $ruleValue) {
+        if (strlen($requestData["password"]) < $ruleValue["value"]) {
             $noMatchingRules[] = 'minSize';
         }
     }
 
-    if ((strripos($rules,'minUppercase') >= 0) && (strripos($rules,'minUppercase') != false)) {
+    if ((strripos($rules,'minUppercase') >= 0) && (strripos($rules,'minUppercase') !== false)) {
         $ruleValue = getCurrentRule($requestData, 'minUppercase');
 
-        if (countUpperCases($requestData["password"]) < $ruleValue) {
+        if (countUpperCases($requestData["password"]) < $ruleValue["value"]) {
             $noMatchingRules[] = 'minUppercase';
         }
     }
 
-    if ((strripos($rules,'minLowercase') >= 0) && (strripos($rules,'minLowercase') != false)) {
+    if ((strripos($rules,'minLowercase') >= 0) && (strripos($rules,'minLowercase') !== false)) {
         $ruleValue = getCurrentRule($requestData, 'minLowercase');
 
-        if (countLowerCases($requestData["password"]) < $ruleValue) {
+        if (countLowerCases($requestData["password"]) < $ruleValue["value"]) {
             $noMatchingRules[] = 'minLowercase';
         }
     }
 
-    if ((strripos($rules,'minDigit') >= 0) && (strripos($rules,'minDigit') != false)) {
+    if ((strripos($rules,'minDigit') >= 0) && (strripos($rules,'minDigit') !== false)) {
         $ruleValue = getCurrentRule($requestData, 'minDigit');
 
-        if (countDigits($requestData["password"]) < $ruleValue) {
+        if (countDigits($requestData["password"]) < $ruleValue["value"]) {
             $noMatchingRules[] = 'minDigit';
         }
     }
 
-    if ((strripos($rules,'minSpecialChars') >= 0) && (strripos($rules,'minSpecialChars') != false)) {
+    if ((strripos($rules,'minSpecialChars') >= 0) && (strripos($rules,'minSpecialChars') !== false)) {
         $ruleValue = getCurrentRule($requestData, 'minSpecialChars');
 
-        if (countSpecialCharacters($requestData["password"]) < $ruleValue) {
+        if (countSpecialCharacters($requestData["password"]) < $ruleValue["value"]) {
             $noMatchingRules[] = 'minSpecialChars';
         }
     }
 
-    if ((strripos($rules,'noRepeted') >= 0) && (strripos($rules,'noRepeted') != false)) {
+    if ((strripos($rules,'noRepeted') >= 0) && (strripos($rules,'noRepeted') !== false)) {
         $ruleValue = getCurrentRule($requestData, 'noRepeted');
 
         if (noRepeted($requestData["password"]) > 0) {
