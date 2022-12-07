@@ -6,7 +6,7 @@ hidden: false
 createdAt: "2022-12-07T11:22:50.815Z"
 updatedAt: "2022-12-07T15:55:54.570Z"
 ---
-Bem vindo! :owlbert:
+Bem vindo! 
 
 Nos tópicos a seguir você recebera instruções de quais os pacotes e instalações necessárias para rodar o programa e como realizar uma requisição para a API do projeto. 
 
