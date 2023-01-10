@@ -3,6 +3,8 @@ services:
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
     ports:
       - "8000:8000"
 
@@ -13,4 +15,4 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /Users/GTI-PC/Documents/PROG/PHP/teste_tecnico/src/
+      - /Users/GTI-PC/Documents/PROG/PHP/teste_tecnico/src/:/var/www/html
