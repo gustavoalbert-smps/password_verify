@@ -5,8 +5,12 @@ include_once 'checkers.php';
 
 $curl = connect('http://localhost:8000/verify/');
 
-$requestResult = json_decode(curl_exec($curl), true);
+$curlRequest = curl_exec($curl);
 
-$noMatchingRules = verifyPasswordStrength(end($requestResult));
+$requestResult = json_decode($curlRequest);
+
+$endRequest = end($requestResult);
+
+$noMatchingRules = verifyPasswordStrength($endRequest);
 
 echo validateRequest($noMatchingRules);
